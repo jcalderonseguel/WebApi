@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\" />
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="Common\Interfaces\" />
     <Folder Include="Mediators\" />
     <Folder Include="System\" />
   </ItemGroup>
