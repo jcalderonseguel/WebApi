@@ -17,11 +17,6 @@
           <EntitySet Name="EmailSet" EntityType="Person.Email" />
           <EntitySet Name="GenderSet" EntityType="Person.Gender" />
           <EntitySet Name="CountrySet" EntityType="Person.Country" />
-          <EntitySet Name="AddressSet" EntityType="Person.Address" />
-          <AssociationSet Name="PersonAddress" Association="Person.PersonAddress">
-            <End Role="Person" EntitySet="PersonSet" />
-            <End Role="Address" EntitySet="AddressSet" />
-          </AssociationSet>
           <AssociationSet Name="PersonEmail" Association="Person.PersonEmail">
             <End Role="Person" EntitySet="PersonSet" />
             <End Role="Email" EntitySet="EmailSet" />
@@ -30,9 +25,14 @@
             <End Role="Person" EntitySet="PersonSet" />
             <End Role="Gender" EntitySet="GenderSet" />
           </AssociationSet>
+          <EntitySet Name="Address" EntityType="Person.Address" />
+          <AssociationSet Name="PersonAddress" Association="Person.PersonAddress">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
           <AssociationSet Name="CountryAddress" Association="Person.CountryAddress">
             <End Role="Country" EntitySet="CountrySet" />
-            <End Role="Address" EntitySet="AddressSet" />
+            <End Role="Address" EntitySet="Address" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
@@ -43,9 +43,9 @@
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="LastName" Type="String" Nullable="false" />
           <Property Name="Rut" Type="String" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Person.PersonAddress" FromRole="Person" ToRole="Address" />
           <NavigationProperty Name="Email" Relationship="Person.PersonEmail" FromRole="Person" ToRole="Email" />
           <NavigationProperty Name="Gender" Relationship="Person.PersonGender" FromRole="Person" ToRole="Gender" />
+          <NavigationProperty Name="Address" Relationship="Person.PersonAddress" FromRole="Person" ToRole="Address" />
         </EntityType>
         <EntityType Name="Email">
           <Key>
@@ -64,16 +64,6 @@
           <Property Name="Description" Type="String" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="Person.PersonGender" FromRole="Gender" ToRole="Person" />
         </EntityType>
-        <EntityType Name="Address">
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StreetName" Type="String" Nullable="false" />
-          <Property Name="Number" Type="String" Nullable="false" />
-          <Property Name="PostCode" Type="String" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="Person.PersonAddress" FromRole="Address" ToRole="Person" />
-          <Property Name="PersonIdPerson" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Country" Relationship="Person.CountryAddress" FromRole="Address" ToRole="Country" />
-          <Property Name="CountryId" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
@@ -83,18 +73,6 @@
           <Property Name="IsoCode" Type="String" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Person.CountryAddress" FromRole="Country" ToRole="Address" />
         </EntityType>
-        <Association Name="PersonAddress">
-          <End Type="Person.Person" Role="Person" Multiplicity="1" />
-          <End Type="Person.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="IdPerson" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="PersonIdPerson" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="PersonEmail">
           <End Type="Person.Person" Role="Person" Multiplicity="1" />
           <End Type="Person.Email" Role="Email" Multiplicity="*" />
@@ -110,6 +88,29 @@
         <Association Name="PersonGender">
           <End Type="Person.Person" Role="Person" Multiplicity="1" />
           <End Type="Person.Gender" Role="Gender" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Person.PersonAddress" FromRole="Address" ToRole="Person" />
+          <Property Name="PersonIdPerson" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Person.CountryAddress" FromRole="Address" ToRole="Country" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="PersonAddress">
+          <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IdPerson" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="PersonIdPerson" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="CountryAddress">
           <End Type="Person.Country" Role="Country" Multiplicity="1" />
