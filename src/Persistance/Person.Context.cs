@@ -1,22 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using Application.Common.Interfaces;
 
 namespace Persistance
 
 {
-    public class Person
+    public class PersonDbContext :DbContext, IPersonDbContext
     {
-        public PersonContainer()
-            : base("name=PersonContainer")
+        public PersonDbContext(DbContextOptions<PersonDbContext> options)
+            : base(options)
         {
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            ModelBuilder.Entity<Address>(entity =>
+            {
+                entity.HasOne(d => d.Person)
+                      .WithMany(p => p.Address)
+                      .HasForeignKey(d => d.PersonId)
+                      .HasConstraintName("FK_PersonHasAddress");
+                
+            });
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonDbContext).Assembly);
+        }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         public virtual DbSet<Address> AddressSet { get; set; }
