@@ -4,7 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="18dbff0b88534d1e965b6698c6b1b0e7" Name="Diagram1" />
+      <Diagram DiagramId="18dbff0b88534d1e965b6698c6b1b0e7" Name="Diagram1" >
+        <EntityTypeShape EntityType="Person.Address" Width="1.5" PointX="1.25" PointY="0.5" />
+        <EntityTypeShape EntityType="Person.Country" Width="1.5" PointX="4.25" PointY="0.5" />
+        <AssociationConnector Association="Person.AddressCountry" />
+        <EntityTypeShape EntityType="Person.Person" Width="1.5" PointX="1.75" PointY="3.375" />
+        <AssociationConnector Association="Person.PersonAddress" />
+        <EntityTypeShape EntityType="Person.Gender" Width="1.5" PointX="5" PointY="3.125" />
+        <EntityTypeShape EntityType="Person.Email" Width="1.5" PointX="5.125" PointY="5.625" />
+        <AssociationConnector Association="Person.PersonGender" />
+        <AssociationConnector Association="Person.PersonEmail" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
