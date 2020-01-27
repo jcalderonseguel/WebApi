@@ -31,10 +31,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Address.cs">
+      <DependentUpon>Person.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Country.cs">
+      <DependentUpon>Person.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Email.cs">
+      <DependentUpon>Person.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gender.cs">
+      <DependentUpon>Person.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Person.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Person.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Person.cs">
+      <DependentUpon>Person.tt</DependentUpon>
+    </Compile>
     <Compile Include="Person.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Person.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Person1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Person.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -48,16 +73,38 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
     <None Include="Person.edmx.diagram">
       <DependentUpon>Person.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Person.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Person.Context.cs</LastGenOutput>
+      <DependentUpon>Person.edmx</DependentUpon>
+    </Content>
+    <Content Include="Person.edmx.sql" />
+    <Content Include="Person.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Person1.cs</LastGenOutput>
+      <DependentUpon>Person.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
