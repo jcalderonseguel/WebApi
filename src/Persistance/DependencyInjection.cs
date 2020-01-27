@@ -9,16 +9,14 @@ namespace Persistance
     {
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("PersonDB");
-          
             services.AddDbContext<PersonDbContext>(options =>
-                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Api")));
+               options.UseSqlServer(configuration.GetConnectionString("PersonDB")));
 
             services.AddScoped<IPersonDbContext>(provider => provider.GetService<PersonDbContext>());
 
-          
-
             return services;
+         
+
         }
     }
 }
