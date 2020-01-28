@@ -13,15 +13,95 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Person" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="PersonContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TestSet" EntityType="Person.Test" />
+          <EntitySet Name="AddressSet" EntityType="Person.Address" />
+          <EntitySet Name="CountrySet" EntityType="Person.Country" />
+          <EntitySet Name="GenderSet" EntityType="Person.Gender" />
+          <EntitySet Name="PersonSet" EntityType="Person.Person" />
+          <EntitySet Name="EmailSet" EntityType="Person.Email" />
+          <AssociationSet Name="AddressCountry" Association="Person.AddressCountry">
+            <End Role="Address" EntitySet="AddressSet" />
+            <End Role="Country" EntitySet="CountrySet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonAddress" Association="Person.PersonAddress">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Address" EntitySet="AddressSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonEmail" Association="Person.PersonEmail">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Email" EntitySet="EmailSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonGender" Association="Person.PersonGender">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Gender" EntitySet="GenderSet" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Test">
+        <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Test1" Type="String" Nullable="false" />
+          <Property Name="StreetName" Type="String" Nullable="false" />
+          <Property Name="Number" Type="String" Nullable="false" />
+          <Property Name="PostCode" Type="String" Nullable="false" />
+          <Property Name="IdCountry" Type="String" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Person.AddressCountry" FromRole="Address" ToRole="Country" />
+          <NavigationProperty Name="Person" Relationship="Person.PersonAddress" FromRole="Address" ToRole="Person" />
         </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="IsoCode" Type="String" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Person.AddressCountry" FromRole="Country" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Person.PersonGender" FromRole="Gender" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Rut" Type="String" Nullable="false" />
+          <Property Name="IdGender" Type="String" Nullable="false" />
+          <Property Name="IdAddress" Type="String" Nullable="false" />
+          <Property Name="IdEmail" Type="String" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Person.PersonAddress" FromRole="Person" ToRole="Address" />
+          <NavigationProperty Name="Email" Relationship="Person.PersonEmail" FromRole="Person" ToRole="Email" />
+          <NavigationProperty Name="Gender" Relationship="Person.PersonGender" FromRole="Person" ToRole="Gender" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Person.PersonEmail" FromRole="Email" ToRole="Person" />
+        </EntityType>
+        <Association Name="AddressCountry">
+          <End Type="Person.Address" Role="Address" Multiplicity="1" />
+          <End Type="Person.Country" Role="Country" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonAddress">
+          <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonEmail">
+          <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Email" Role="Email" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonGender">
+          <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Gender" Role="Gender" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
