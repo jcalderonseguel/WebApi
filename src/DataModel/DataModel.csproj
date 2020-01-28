@@ -73,7 +73,7 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Person.edmx.diagram">
       <DependentUpon>Person.edmx</DependentUpon>
@@ -94,17 +94,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Person.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Person.Context.cs</LastGenOutput>
-      <DependentUpon>Person.edmx</DependentUpon>
-    </Content>
     <Content Include="Person.edmx.sql" />
-    <Content Include="Person.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Person1.cs</LastGenOutput>
-      <DependentUpon>Person.edmx</DependentUpon>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

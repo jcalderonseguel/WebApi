@@ -6,29 +6,29 @@
     <edmx:StorageModels>
     <Schema Namespace="Person.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="PersonStoreContainer">
-    <EntitySet Name="AddressSet" EntityType="Person.Store.AddressSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CountrySet" EntityType="Person.Store.CountrySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Address" EntityType="Person.Store.Address" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Country" EntityType="Person.Store.Country" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PersonSet" EntityType="Person.Store.PersonSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="GenderSet" EntityType="Person.Store.GenderSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EmailSet" EntityType="Person.Store.EmailSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="CountryAddress" Association="Person.Store.CountryAddress">
-      <End Role="Country" EntitySet="CountrySet" />
-      <End Role="Address" EntitySet="AddressSet" />
-    </AssociationSet>
+    <EntitySet Name="Gender" EntityType="Person.Store.Gender" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Email" EntityType="Person.Store.Email" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="GenderPerson" Association="Person.Store.GenderPerson">
-      <End Role="Gender" EntitySet="GenderSet" />
+      <End Role="Gender" EntitySet="Gender" />
       <End Role="Person" EntitySet="PersonSet" />
     </AssociationSet>
-    <AssociationSet Name="AddressPerson" Association="Person.Store.AddressPerson">
-      <End Role="Address" EntitySet="AddressSet" />
+    <AssociationSet Name="PersonEmail" Association="Person.Store.PersonEmail">
       <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Email" EntitySet="Email" />
     </AssociationSet>
-    <AssociationSet Name="EmailPerson" Association="Person.Store.EmailPerson">
-      <End Role="Email" EntitySet="EmailSet" />
+    <AssociationSet Name="PersonAddress" Association="Person.Store.PersonAddress">
       <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Address" EntitySet="Address" />
+    </AssociationSet>
+    <AssociationSet Name="CountryAddress" Association="Person.Store.CountryAddress">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Address" EntitySet="Address" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="AddressSet">
+  <EntityType Name="Address">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -36,10 +36,10 @@
     <Property Name="StreetName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PostCode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
     <Property Name="CountryId" Type="int" Nullable="false" />
-    <Property Name="Person_Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="CountrySet">
+  <EntityType Name="Country">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -57,35 +57,23 @@
     <Property Name="Rut" Type="nvarchar(max)" Nullable="false" />
     <Property Name="GenderId" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="GenderSet">
+  <EntityType Name="Gender">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
-  <EntityType Name="EmailSet">
+  <EntityType Name="Email">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Person_Id" Type="int" Nullable="false" />
+    <Property Name="PersonId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="CountryAddress">
-    <End Role="Country" Type="Person.Store.CountrySet" Multiplicity="1" />
-    <End Role="Address" Type="Person.Store.AddressSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Country">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Address">
-        <PropertyRef Name="CountryId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="GenderPerson">
-    <End Role="Gender" Type="Person.Store.GenderSet" Multiplicity="1" />
+    <End Role="Gender" Type="Person.Store.Gender" Multiplicity="1" />
     <End Role="Person" Type="Person.Store.PersonSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Gender">
@@ -96,27 +84,39 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="AddressPerson">
-    <End Role="Address" Type="Person.Store.AddressSet" Multiplicity="*" />
+  <Association Name="PersonEmail">
     <End Role="Person" Type="Person.Store.PersonSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Address">
-        <PropertyRef Name="Person_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EmailPerson">
-    <End Role="Email" Type="Person.Store.EmailSet" Multiplicity="*" />
-    <End Role="Person" Type="Person.Store.PersonSet" Multiplicity="1" />
+    <End Role="Email" Type="Person.Store.Email" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Person">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Email">
-        <PropertyRef Name="Person_Id" />
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonAddress">
+    <End Role="Person" Type="Person.Store.PersonSet" Multiplicity="1" />
+    <End Role="Address" Type="Person.Store.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CountryAddress">
+    <End Role="Country" Type="Person.Store.Country" Multiplicity="1" />
+    <End Role="Address" Type="Person.Store.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="CountryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -125,26 +125,26 @@
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Person" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="PersonContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AddressSet" EntityType="Person.Address" />
-          <EntitySet Name="CountrySet" EntityType="Person.Country" />
+          <EntitySet Name="Address" EntityType="Person.Address" />
+          <EntitySet Name="Country" EntityType="Person.Country" />
           <EntitySet Name="PersonSet" EntityType="Person.Person" />
-          <EntitySet Name="GenderSet" EntityType="Person.Gender" />
-          <EntitySet Name="EmailSet" EntityType="Person.Email" />
-          <AssociationSet Name="CountryAddress" Association="Person.CountryAddress">
-            <End Role="Country" EntitySet="CountrySet" />
-            <End Role="Address" EntitySet="AddressSet" />
-          </AssociationSet>
+          <EntitySet Name="Gender" EntityType="Person.Gender" />
+          <EntitySet Name="Email" EntityType="Person.Email" />
           <AssociationSet Name="GenderPerson" Association="Person.GenderPerson">
-            <End Role="Gender" EntitySet="GenderSet" />
+            <End Role="Gender" EntitySet="Gender" />
             <End Role="Person" EntitySet="PersonSet" />
           </AssociationSet>
-          <AssociationSet Name="AddressPerson" Association="Person.AddressPerson">
-            <End Role="Address" EntitySet="AddressSet" />
+          <AssociationSet Name="PersonEmail" Association="Person.PersonEmail">
             <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Email" EntitySet="Email" />
           </AssociationSet>
-          <AssociationSet Name="EmailPerson" Association="Person.EmailPerson">
-            <End Role="Email" EntitySet="EmailSet" />
+          <AssociationSet Name="PersonAddress" Association="Person.PersonAddress">
             <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="CountryAddress" Association="Person.CountryAddress">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Address" EntitySet="Address" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Address">
@@ -155,9 +155,10 @@
           <Property Name="StreetName" Type="String" Nullable="false" />
           <Property Name="Number" Type="String" Nullable="false" />
           <Property Name="PostCode" Type="String" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Person.PersonAddress" FromRole="Address" ToRole="Person" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Country" Relationship="Person.CountryAddress" FromRole="Address" ToRole="Country" />
           <Property Name="CountryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="Person.AddressPerson" FromRole="Address" ToRole="Person" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -178,8 +179,8 @@
           <Property Name="Rut" Type="String" Nullable="false" />
           <NavigationProperty Name="Gender" Relationship="Person.GenderPerson" FromRole="Person" ToRole="Gender" />
           <Property Name="GenderId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Person.AddressPerson" FromRole="Person" ToRole="Address" />
-          <NavigationProperty Name="Email" Relationship="Person.EmailPerson" FromRole="Person" ToRole="Email" />
+          <NavigationProperty Name="Email" Relationship="Person.PersonEmail" FromRole="Person" ToRole="Email" />
+          <NavigationProperty Name="Address" Relationship="Person.PersonAddress" FromRole="Person" ToRole="Address" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -195,20 +196,9 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="Person.EmailPerson" FromRole="Email" ToRole="Person" />
+          <NavigationProperty Name="Person" Relationship="Person.PersonEmail" FromRole="Email" ToRole="Person" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="CountryAddress">
-          <End Type="Person.Country" Role="Country" Multiplicity="1" />
-          <End Type="Person.Address" Role="Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="GenderPerson">
           <End Type="Person.Gender" Role="Gender" Multiplicity="1" />
           <End Type="Person.Person" Role="Person" Multiplicity="*" />
@@ -221,13 +211,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AddressPerson">
-          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+        <Association Name="PersonEmail">
           <End Type="Person.Person" Role="Person" Multiplicity="1" />
-        </Association>
-        <Association Name="EmailPerson">
           <End Type="Person.Email" Role="Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonAddress">
           <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CountryAddress">
+          <End Type="Person.Country" Role="Country" Multiplicity="1" />
+          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -235,20 +253,21 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="PersonStoreContainer" CdmEntityContainer="PersonContainer">
-    <EntitySetMapping Name="AddressSet">
+    <EntitySetMapping Name="Address">
       <EntityTypeMapping TypeName="IsTypeOf(Person.Address)">
-        <MappingFragment StoreEntitySet="AddressSet">
+        <MappingFragment StoreEntitySet="Address">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="StreetName" ColumnName="StreetName" />
           <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CountrySet">
+    <EntitySetMapping Name="Country">
       <EntityTypeMapping TypeName="IsTypeOf(Person.Country)">
-        <MappingFragment StoreEntitySet="CountrySet">
+        <MappingFragment StoreEntitySet="Country">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="IsoCode" ColumnName="IsoCode" />
@@ -266,38 +285,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="GenderSet">
+    <EntitySetMapping Name="Gender">
       <EntityTypeMapping TypeName="IsTypeOf(Person.Gender)">
-        <MappingFragment StoreEntitySet="GenderSet">
+        <MappingFragment StoreEntitySet="Gender">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="EmailSet">
+    <EntitySetMapping Name="Email">
       <EntityTypeMapping TypeName="IsTypeOf(Person.Email)">
-        <MappingFragment StoreEntitySet="EmailSet">
+        <MappingFragment StoreEntitySet="Email">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AddressPerson" TypeName="Person.AddressPerson" StoreEntitySet="AddressSet">
-      <EndProperty Name="Person">
-        <ScalarProperty Name="Id" ColumnName="Person_Id" />
-      </EndProperty>
-      <EndProperty Name="Address">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="EmailPerson" TypeName="Person.EmailPerson" StoreEntitySet="EmailSet">
-      <EndProperty Name="Person">
-        <ScalarProperty Name="Id" ColumnName="Person_Id" />
-      </EndProperty>
-      <EndProperty Name="Email">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
