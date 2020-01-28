@@ -15,24 +15,24 @@
         <EntityContainer Name="PersonContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PersonSet" EntityType="Person.Person" />
           <EntitySet Name="AddressSet" EntityType="Person.Address" />
-          <AssociationSet Name="PersonAddress" Association="Person.PersonAddress">
-            <End Role="Person" EntitySet="PersonSet" />
-            <End Role="Address" EntitySet="AddressSet" />
-          </AssociationSet>
           <EntitySet Name="CountrySet" EntityType="Person.Country" />
           <EntitySet Name="GenderSet" EntityType="Person.Gender" />
           <EntitySet Name="EmailSet" EntityType="Person.Email" />
-          <AssociationSet Name="PersonGender" Association="Person.PersonGender">
-            <End Role="Person" EntitySet="PersonSet" />
-            <End Role="Gender" EntitySet="GenderSet" />
-          </AssociationSet>
           <AssociationSet Name="PersonEmail" Association="Person.PersonEmail">
             <End Role="Person" EntitySet="PersonSet" />
             <End Role="Email" EntitySet="EmailSet" />
           </AssociationSet>
-          <AssociationSet Name="AddressCountry" Association="Person.AddressCountry">
+          <AssociationSet Name="PersonAddress" Association="Person.PersonAddress">
+            <End Role="Person" EntitySet="PersonSet" />
             <End Role="Address" EntitySet="AddressSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonGender" Association="Person.PersonGender">
+            <End Role="Person" EntitySet="PersonSet" />
+            <End Role="Gender" EntitySet="GenderSet" />
+          </AssociationSet>
+          <AssociationSet Name="CountryAddress" Association="Person.CountryAddress">
             <End Role="Country" EntitySet="CountrySet" />
+            <End Role="Address" EntitySet="AddressSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
@@ -45,9 +45,9 @@
           <Property Name="IdGender" Type="Int64" Nullable="true" />
           <Property Name="IdAddress" Type="Int64" Nullable="true" />
           <Property Name="IdEmail" Type="Int64" Nullable="true" />
+          <NavigationProperty Name="Email" Relationship="Person.PersonEmail" FromRole="Person" ToRole="Email" />
           <NavigationProperty Name="Address" Relationship="Person.PersonAddress" FromRole="Person" ToRole="Address" />
           <NavigationProperty Name="Gender" Relationship="Person.PersonGender" FromRole="Person" ToRole="Gender" />
-          <NavigationProperty Name="Email" Relationship="Person.PersonEmail" FromRole="Person" ToRole="Email" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -59,12 +59,10 @@
           <Property Name="PostCode" Type="String" Nullable="false" MaxLength="10" />
           <Property Name="IdCountry" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="Person.PersonAddress" FromRole="Address" ToRole="Person" />
-          <NavigationProperty Name="Country" Relationship="Person.AddressCountry" FromRole="Address" ToRole="Country" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Person.CountryAddress" FromRole="Address" ToRole="Country" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
         </EntityType>
-        <Association Name="PersonAddress">
-          <End Type="Person.Person" Role="Person" Multiplicity="1" />
-          <End Type="Person.Address" Role="Address" Multiplicity="*" />
-        </Association>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
@@ -72,7 +70,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" />
           <Property Name="IsoCode" Type="String" Nullable="false" MaxLength="3" />
-          <NavigationProperty Name="Address" Relationship="Person.AddressCountry" FromRole="Country" ToRole="Address" />
+          <NavigationProperty Name="Address" Relationship="Person.CountryAddress" FromRole="Country" ToRole="Address" />
         </EntityType>
         <EntityType Name="Gender">
           <Key>
@@ -90,17 +88,37 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="10" />
           <NavigationProperty Name="Person" Relationship="Person.PersonEmail" FromRole="Email" ToRole="Person" />
         </EntityType>
-        <Association Name="PersonGender">
-          <End Type="Person.Person" Role="Person" Multiplicity="1" />
-          <End Type="Person.Gender" Role="Gender" Multiplicity="*" />
-        </Association>
         <Association Name="PersonEmail">
           <End Type="Person.Person" Role="Person" Multiplicity="1" />
           <End Type="Person.Email" Role="Email" Multiplicity="*" />
         </Association>
-        <Association Name="AddressCountry">
-          <End Type="Person.Address" Role="Address" Multiplicity="1" />
-          <End Type="Person.Country" Role="Country" Multiplicity="*" />
+        <Association Name="PersonAddress">
+          <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonGender">
+          <End Type="Person.Person" Role="Person" Multiplicity="1" />
+          <End Type="Person.Gender" Role="Gender" Multiplicity="1" />
+        </Association>
+        <Association Name="CountryAddress">
+          <End Type="Person.Country" Role="Country" Multiplicity="1" />
+          <End Type="Person.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
