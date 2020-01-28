@@ -28,6 +28,15 @@ namespace Persistance
                      .HasConstraintName("FK_PersonHasAddress");
            });
 
+            modelBuilder.Entity<Address>(entity =>
+            {
+                entity.HasOne(d => d.Country)
+                      .WithMany(p => p.Address)
+                      .HasForeignKey(d => d.IdCountry)
+                      .HasConstraintName("FK_CountryHasAddress");
+            });
+
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersonDbContext).Assembly);
         }
 

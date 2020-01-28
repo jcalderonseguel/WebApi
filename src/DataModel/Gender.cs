@@ -12,11 +12,16 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Gender
+    public class Gender
     {
-        public short Id { get; set; }
-        public string Description { get; set; }
+   
+        public Gender()
+        {
+            Person = new HashSet<Person>();
+        }
     
-        public virtual Person Person { get; set; }
+        public int GenderId { get; set; }
+        public string Description { get; set; }
+        public virtual ICollection<Person> Person { get; set; }
     }
 }

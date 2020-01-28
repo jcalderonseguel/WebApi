@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public partial class Address
+    public class Address
     {
         public long Id { get; set; }
         public string name { get; set; }
         public int IdPerson { get; set; }
-        public int CountryId { get; set; }
+        public int IdCountry { get; set; }
 
         public virtual Person Person { get; set; }
         public virtual Country Country { get; set; }

@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public partial class Country
+    public class Country
     {
         public Country()
         {
-            this.Address = new HashSet<Address>();
+            Address = new HashSet<Address>();
         }
 
-        public int Id { get; set; }
+        public int IdCountry { get; set; }
         public string Name { get; set; }
         public string IsoCode { get; set; }
         public virtual ICollection<Address> Address { get; set; }

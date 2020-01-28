@@ -20,7 +20,7 @@ namespace DataModel
             this.Address = new HashSet<Address>();
         }
     
-        public int Id { get; set; }
+        public int IdCountry { get; set; }
         public string Name { get; set; }
         public string IsoCode { get; set; }
     

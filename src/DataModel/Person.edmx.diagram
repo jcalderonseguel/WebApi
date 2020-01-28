@@ -10,10 +10,10 @@
         <EntityTypeShape EntityType="Person.Gender" Width="1.5" PointX="7" PointY="3.625" />
         <EntityTypeShape EntityType="Person.Country" Width="1.5" PointX="5.375" PointY="0.75" />
         <AssociationConnector Association="Person.PersonEmail" />
-        <AssociationConnector Association="Person.PersonGender" />
         <EntityTypeShape EntityType="Person.Address" Width="1.5" PointX="2.375" PointY="0.75" />
         <AssociationConnector Association="Person.PersonAddress" />
         <AssociationConnector Association="Person.CountryAddress" />
+        <AssociationConnector Association="Person.GenderPerson" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
