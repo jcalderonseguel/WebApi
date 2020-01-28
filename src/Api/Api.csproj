@@ -2,10 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ApplicationIcon />
-    <OutputType>Exe</OutputType>
-    <StartupObject></StartupObject>
-    <UserSecretsId>71bc27c1-36f6-46a7-9579-9ebd48b68e5f</UserSecretsId>
+    <UserSecretsId>bb549ef8-ee71-4e2a-a021-2fd287975ac5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +15,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
   </ItemGroup>
@@ -26,5 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Persistance\Persistance.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
