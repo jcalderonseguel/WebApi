@@ -12,6 +12,10 @@ namespace Application.Common.Interfaces
     {
          DbSet<Person> Person { get; set; }
          DbSet<Address> Address { get; set; }
+         DbSet<Country> Country { get; set; }
+         DbSet<Email> Email { get; set; }
+         DbSet<Gender> Gender { get; set; }
+      
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

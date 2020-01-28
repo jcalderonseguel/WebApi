@@ -31,26 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Address.cs">
-      <DependentUpon>person.tt</DependentUpon>
-    </Compile>
-    <Compile Include="person.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>person.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>person.tt</DependentUpon>
-    </Compile>
     <Compile Include="Person.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Person.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="person1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>person.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -85,16 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="person.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>person.Context.cs</LastGenOutput>
-      <DependentUpon>Person.edmx</DependentUpon>
-    </Content>
-    <Content Include="person.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>person1.cs</LastGenOutput>
-      <DependentUpon>Person.edmx</DependentUpon>
-    </Content>
+    <Content Include="Person.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

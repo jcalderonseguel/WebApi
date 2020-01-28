@@ -7,12 +7,18 @@ namespace Domain.Entities
     {
         public Person()
         {
-            this.Address = new HashSet<Address>();
+            Address = new HashSet<Address>();
+            Email = new HashSet<Email>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public string LastName { get; set; }
+        public string Rut { get; set; }
+        public int GenderId { get; set; }
 
+        public virtual Gender Gender { get; set; }
         public virtual ICollection<Address> Address { get; set; }
+        public virtual ICollection<Email> Email { get; set; }
     }
 }
