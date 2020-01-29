@@ -35,34 +35,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Address.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>person.tt</DependentUpon>
     </Compile>
     <Compile Include="Country.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>person.tt</DependentUpon>
     </Compile>
     <Compile Include="Email.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>person.tt</DependentUpon>
     </Compile>
     <Compile Include="Gender.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>person.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Context.cs">
+    <Compile Include="person.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>person.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>person.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Person.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="person1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>person.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
