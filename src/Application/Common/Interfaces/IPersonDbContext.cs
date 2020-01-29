@@ -17,5 +17,7 @@ namespace Application.Common.Interfaces
          DbSet<Gender> Gender { get; set; }
       
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+        Task<List<Person>> GetAllPerson();
     }
 }
