@@ -12,17 +12,20 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public  partial class Address
+    public partial class Address
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Address()
+        {
+            this.IdCountry = new HashSet<Country>();
+        }
+    
         public int Id { get; set; }
         public string StreetName { get; set; }
         public string Number { get; set; }
         public string PostCode { get; set; }
-        public long IdCountry { get; set; }
-        public int PersonId { get; set; }
-        public int CountryId { get; set; }
     
-        public virtual Person Person { get; set; }
-        public virtual Country Country { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Country> IdCountry { get; set; }
     }
 }

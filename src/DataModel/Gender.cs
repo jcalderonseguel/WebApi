@@ -16,7 +16,6 @@ namespace DataModel
     {
         public int Id { get; set; }
         public string Description { get; set; }
-    
-        public virtual Person Person { get; set; }
+        public int PersonIdPerson { get; set; }
     }
 }
