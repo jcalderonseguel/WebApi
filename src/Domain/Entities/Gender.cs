@@ -4,14 +4,16 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    using System;
-    using System.Collections.Generic;
-
-    public partial class Gender
+    public class Gender
     {
+        public Gender()
+        {
+            Person = new HashSet<Person>();
+        }
+
         public int Id { get; set; }
         public string Description { get; set; }
 
-        public virtual Person Person { get; set; }
+        public virtual ICollection<Person> Person { get; set; }
     }
 }
