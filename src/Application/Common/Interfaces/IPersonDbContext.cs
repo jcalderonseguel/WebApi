@@ -1,5 +1,4 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,11 +10,12 @@ namespace Application.Common.Interfaces
 {
     public interface IPersonDbContext
     {
-        DbSet< Person > Persons { get; set; }
-        DbSet<Address> Address { get; set; }
-        DbSet<Country> Countries { get; set; }
-        DbSet<Gender> Genders { get; set; }
-        DbSet<Email> Emails { get; set; }
+         DbSet<Person> Person { get; set; }
+         DbSet<Address> Address { get; set; }
+         DbSet<Country> Country { get; set; }
+         DbSet<Email> Email { get; set; }
+         DbSet<Gender> Gender { get; set; }
+      
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
