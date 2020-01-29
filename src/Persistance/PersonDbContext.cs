@@ -24,6 +24,7 @@ namespace Persistance
                 entity.HasIndex(e => e.PersonId)
                     .HasName("IX_FK_PersonAddress");
 
+
                 entity.Property(e => e.Number).IsRequired();
 
                 entity.Property(e => e.PostCode).IsRequired();
