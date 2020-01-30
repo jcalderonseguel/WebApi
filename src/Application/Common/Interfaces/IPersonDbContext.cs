@@ -18,6 +18,5 @@ namespace Application.Common.Interfaces
       
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        Task<List<Person>> GetAllPerson();
     }
 }
