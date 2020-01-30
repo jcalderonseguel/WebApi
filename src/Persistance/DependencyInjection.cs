@@ -15,7 +15,6 @@ namespace Persistance
             services.AddScoped<IPersonDbContext>(provider => provider.GetService<PersonDbContext>());
 
             return services;
-         
 
         }
     }
