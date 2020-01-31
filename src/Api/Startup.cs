@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistance;
-
 namespace WebApi
 {
     public class Startup
@@ -27,6 +23,8 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddPersistence(Configuration);
+            services.AddApplication();
+            services.AddHealthChecks().AddDbContextCheck<PersonDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
