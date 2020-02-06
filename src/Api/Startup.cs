@@ -1,3 +1,4 @@
+using Api.Common;
 using Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistance;
+
 
 namespace WebApi
 {
@@ -26,6 +28,7 @@ namespace WebApi
             services.AddPersistence(Configuration);
             services.AddApplication();
             services.AddHealthChecks().AddDbContextCheck<PersonDbContext>();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,14 +39,15 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHealthChecks("/health");
+
             app.UseRouting();
+
+            app.UseCustomExceptionHandler();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
