@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Api.Common;
 using Application;
 using Microsoft.AspNetCore.Builder;
@@ -38,10 +42,14 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHealthChecks("/health");
-
             app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
+            app.UseCustomExceptionHandler();
 
             app.UseCustomExceptionHandler();
 

@@ -10,7 +10,7 @@ namespace Domain.Entities
         public string StreetName { get; set; }
         public string Number { get; set; }
         public string PostCode { get; set; }
-        public int PersonId { get; set; }
+        public int? PersonId { get; set; }
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
