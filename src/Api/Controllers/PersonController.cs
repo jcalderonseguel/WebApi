@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Application.Mediators.PersonOperations.GetPersonByDocumentNumber;
 using Api.Presenters.Interfaces;
+using Api.Presenters;
 
 namespace Api.Controllers
 {
@@ -19,9 +20,10 @@ namespace Api.Controllers
         private readonly IMediator mediator;
         private readonly IPersonPresenter personPresenter;
 
-        public PersonController(IMediator mediator)
+        public PersonController(IMediator mediator, IPersonPresenter personPresenter)
         {
             this.mediator = mediator;
+            this.personPresenter = personPresenter;
         }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -34,10 +36,10 @@ namespace Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(string name,string lastName,string rut,int genderId)
+        public async Task<IActionResult> Get(int Id)
         {
             return personPresenter.GetPersonByDocumentNumber(await this.mediator.Send(
-                new GetPersonByDocumentNumberQuery(name, lastName, rut, genderId)));
+                new GetPersonByDocumentNumberQuery(Id)));
         }
 
         [HttpGet("exist/{personId}")]
