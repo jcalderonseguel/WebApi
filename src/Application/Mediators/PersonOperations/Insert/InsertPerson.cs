@@ -42,6 +42,7 @@ namespace Application.Mediators.Insert
                         StreetName = a.StreetName,
                         Number = a.Number,
                         PostCode = a.PostCode,
+                        CountryId = a.CountryId
 
                     };
                     addresses.Add(address);
@@ -60,12 +61,16 @@ namespace Application.Mediators.Insert
                     emails.Add(email);
                 }
             }
+            //insert address
 
+            //insert email 
+            //insert person
             Person person = new Person
             {
                
                 Name = request.Name,
-                LastName = request.Rut,
+                LastName = request.LastName,
+                Rut = request.Rut,
                 GenderId = request.GenderId,
                 Address = addresses,
                 Email = emails,
