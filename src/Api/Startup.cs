@@ -1,9 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Common;
+=======
+>>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
 =======
 >>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
 using Application;
@@ -44,7 +47,11 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
             app.UseHealthChecks("/health");
+=======
+
+>>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
 =======
 
 >>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
@@ -53,8 +60,6 @@ namespace WebApi
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCustomExceptionHandler();
 
             app.UseEndpoints(endpoints =>
             {
