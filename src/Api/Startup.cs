@@ -1,4 +1,6 @@
 using Api.Common;
+using Api.Presenters;
+using Api.Presenters.Interfaces;
 using Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,10 @@ namespace WebApi
             services.AddApplication();
             services.AddHealthChecks().AddDbContextCheck<PersonDbContext>();
             services.AddControllersWithViews();
+            services.AddTransient<IPersonPresenter, PersonPresenter>();
+            services.AddTransient<IGenderPresenter, GenderPresenter>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

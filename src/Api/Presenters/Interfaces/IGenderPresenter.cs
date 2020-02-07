@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Application.Mediators.GenderOperations.Queries;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Application.Mediators.PersonOperations.GetGender;
 
 namespace Api.Presenters.Interfaces
 {
     public interface IGenderPresenter
     {
-        IActionResult GetGenderByCountry(IdentificationGenderVm identificationGenderVm);
+
+        IActionResult GetGenderN(GenderInfoDto genderInfoDto);
+        IActionResult InsertResult(int Id);
     }
 }
