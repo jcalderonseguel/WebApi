@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Persistance
 {
-    public   class PersonDbContext :DbContext, IPersonDbContext
+    public class PersonDbContext : DbContext, IPersonDbContext
     {
 
         public PersonDbContext(DbContextOptions<PersonDbContext> options)
