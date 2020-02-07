@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 using MediatR;
 using Application.Mediators.PersonOperations.GetPersonByDocumentNumber;
 using Api.Presenters.Interfaces;
@@ -58,6 +59,15 @@ namespace Api.Controllers
             return Ok(await this.mediator.Send(new PersonExistByIdQuery { Id = Id }));
         }
 =======
+>>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
+=======
+
+namespace Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PersonController : ControllerBase
+    {
 >>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
 =======
 

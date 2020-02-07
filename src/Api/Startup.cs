@@ -1,10 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Common;
+=======
+>>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
 =======
 >>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
 =======
@@ -48,6 +51,7 @@ namespace WebApi
             }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             app.UseHealthChecks("/health");
 =======
 
@@ -56,9 +60,17 @@ namespace WebApi
 
 >>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
             app.UseRouting();
+=======
+
+            app.UseRouting();
+
+>>>>>>> parent of 033f538... get de genders listo e insert de person incompleto
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Hello World!");
+                });
             });
 
             app.UseEndpoints(endpoints =>
