@@ -40,7 +40,7 @@ namespace Application.System.SeedSampleData
         {
             new Address {StreetName = "Los Vivaldis", Number = "1234", PostCode = "1111", PersonId = 1, CountryId = 1},
             new Address {StreetName = "Los Wachiturros", Number = "5678", PostCode = "2222", PersonId = 2, CountryId = 2},
-            new Address {StreetName = "Sopa do Macaco", Number = "9101", PostCode = "3333", PersonId = 3, CountryId = 3}
+            new Address {StreetName = "Sopa do Macaco", Number = "9101", PostCode = "333", PersonId = 3, CountryId = 3}
         };
 
         private readonly List<Email> Emails = new List<Email>
