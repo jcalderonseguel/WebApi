@@ -6,7 +6,7 @@ namespace Application.Mediators.GenderOperations.Queries
 {
     public class IdentificationGenderDto
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
     }
 
