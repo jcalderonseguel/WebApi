@@ -12,18 +12,14 @@ namespace Application.Mediators.PersonOperations.GetPersonByDocumentNumber
 {
     public class GetPersonByDocumentNumberQuery : IRequest<PersonInfoDto>
     {
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Rut { get; set; }
+       
 
-        public int GenderId { get; set; }
+        public int Id { get; set; }
 
-        public GetPersonByDocumentNumberQuery(string Name ,string LastName, string Rut, int GenderId)
+        public GetPersonByDocumentNumberQuery(int Id)
         {
-            this.Name = Name;
-            this.LastName = LastName;
-            this.Rut = Rut;
-            this.GenderId = GenderId;
+          
+            this.Id =Id;
 
         }
     }
@@ -45,7 +41,7 @@ namespace Application.Mediators.PersonOperations.GetPersonByDocumentNumber
                 Rut = x.Rut,
                 GenderId = x.GenderId
 
-            }).FirstOrDefaultAsync(cancellationToken);
+            }).Where(x=> x.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
             
             return p;
         }

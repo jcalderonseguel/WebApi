@@ -40,6 +40,8 @@ namespace Api.Controllers
         {
             return personPresenter.GetPersonByDocumentNumber(await this.mediator.Send(
                 new GetPersonByDocumentNumberQuery(Id)));
+
+
         }
 
         [HttpGet("exist/{personId}")]
