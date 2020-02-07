@@ -24,7 +24,7 @@ namespace Application.Mediators.Insert
     public class InsertHandler : IRequestHandler<InsertPerson, int>
     {
         private readonly IPersonDbContext _context;
-            public InsertHandler(IPersonDbContext context)
+        public InsertHandler(IPersonDbContext context)
         {
             _context = context;
 
@@ -33,9 +33,9 @@ namespace Application.Mediators.Insert
         public async Task<int> Handle(InsertPerson request, CancellationToken cancellationToken)
         {
             List<Address> addresses = new List<Address>();
-            if(!request.Address.Equals(null))
+            if (!request.Address.Equals(null))
             {
-                foreach(var a in request.Address)
+                foreach (var a in request.Address)
                 {
                     var address = new Address
                     {
@@ -50,9 +50,9 @@ namespace Application.Mediators.Insert
 
             }
             List<Email> emails = new List<Email>();
-            if(!request.Email.Equals(null))
+            if (!request.Email.Equals(null))
             {
-                foreach(var e in request.Email)
+                foreach (var e in request.Email)
                 {
                     var email = new Email
                     {
@@ -61,13 +61,9 @@ namespace Application.Mediators.Insert
                     emails.Add(email);
                 }
             }
-            //insert address
-
-            //insert email 
-            //insert person
             Person person = new Person
             {
-               
+
                 Name = request.Name,
                 LastName = request.LastName,
                 Rut = request.Rut,
@@ -81,7 +77,7 @@ namespace Application.Mediators.Insert
             return person.Id;
         }
 
-     
-  
+
+
     }
 }
