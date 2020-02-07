@@ -13,5 +13,6 @@ namespace Api.Presenters.Interfaces
         IActionResult GetPersonByDocumentNumber(PersonInfoDto personInfoDto);
         IActionResult InsertResult(int Id);
 
+
     }
 }
