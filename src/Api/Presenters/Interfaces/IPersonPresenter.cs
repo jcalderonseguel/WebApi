@@ -10,5 +10,6 @@ namespace Api.Presenters.Interfaces
     public interface IPersonPresenter
     {
         IActionResult InsertResult(int Id);
+
     }
 }
