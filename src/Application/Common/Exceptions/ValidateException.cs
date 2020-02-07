@@ -1,8 +1,8 @@
-﻿using FluentValidation.Results;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using FluentValidation.Results;
+using System.Linq;
 
 namespace Application.Common.Exceptions
 {
@@ -13,12 +13,15 @@ namespace Application.Common.Exceptions
         {
             Failures = new Dictionary<string, string[]>();
         }
+
         public ValidateException(List<ValidationFailure> failures)
-            :this()
+            : this()
         {
+
             var propertyNames = failures
                 .Select(e => e.PropertyName)
                 .Distinct();
+
             foreach (var propertyName in propertyNames)
             {
                 var propertyFailures = failures
@@ -28,9 +31,8 @@ namespace Application.Common.Exceptions
 
                 Failures.Add(propertyName, propertyFailures);
             }
-
         }
-        public IDictionary<string , string[]> Failures { get; }
 
+        public IDictionary<string, string[]> Failures { get; }
     }
 }
