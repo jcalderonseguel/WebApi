@@ -35,6 +35,9 @@ namespace WebApi
             services.AddHealthChecks().AddDbContextCheck<PersonDbContext>();
             services.AddControllersWithViews();
             services.AddTransient<IPersonPresenter, PersonPresenter>();
+            services.AddTransient<IGenderPresenter, GenderPresenter>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
