@@ -1,23 +1,23 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Api.Presenters;
-using Application.Common.Exceptions;
+﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Net;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Api.Presenters;
+using Newtonsoft.Json;
+using Application.Common.Exceptions;
+using Microsoft.AspNetCore.Builder;
 
 namespace Api.Common
 {
-    public class CustomExceptionHandlerMiddleware
+    public class CustomExeceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public CustomExceptionHandlerMiddleware(RequestDelegate next)
+        public CustomExeceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
         }
-
         public async Task Invoke(HttpContext context)
         {
             try
@@ -32,10 +32,9 @@ namespace Api.Common
 
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            // var code = HttpStatusCode.InternalServerError;
             CustomResult result = new CustomResult();
 
-            switch (exception)
+            switch(exception)
             {
                 case ValidateException validationException:
                     result.StatusCode = 400;
@@ -44,18 +43,17 @@ namespace Api.Common
                     break;
 
             }
-
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = 200;
 
             return context.Response.WriteAsync(JsonConvert.SerializeObject(result));
         }
     }
-    public static class CustomExceptionHandlerMiddlewareExtensions
+    public static class  CustomExceptionHandlerMiddlewareExtensions
     {
         public static IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<CustomExceptionHandlerMiddleware>();
+            return builder.UseMiddleware<CustomExeceptionHandlerMiddleware>();
         }
     }
 }
