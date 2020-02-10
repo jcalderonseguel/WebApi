@@ -28,7 +28,5 @@ namespace Api.Controllers
             var response = await this.mediator.Send(new GetEmailIdQuery(EmailId));
             return this.Ok(response);
         }
-
-
     }
 }

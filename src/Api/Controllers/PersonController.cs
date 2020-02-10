@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Api.Presenters;
 using Api.Presenters.Interfaces.PersonPresenters;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -9,19 +8,17 @@ using Application.Mediators.PersonOperations.Queries.InsertPerson;
 
 namespace Api.Controllers
 {
-    [Route("personType")]
+    [Route("persons")]
     [ApiController]
     public class PersonController : BaseController
     {
         private readonly IMediator mediator;
         private readonly IPersonTypePresenter personTypePresenter;
-        private readonly IPersonPresenter personPresenter;
 
-        public PersonController(IMediator mediator, IPersonTypePresenter personTypePresenter, IPersonPresenter personPresenter)
+        public PersonController(IMediator mediator, IPersonTypePresenter personTypePresenter)
         {
             this.mediator = mediator;
             this.personTypePresenter = personTypePresenter;
-            this.personPresenter = personPresenter;
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -37,9 +34,9 @@ namespace Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
-        public async Task<ActionResult> Post([FromBody]InsertPerson person)
+        public async Task<IActionResult> Post([FromBody]InsertPerson Person)
         {
-            return PersonPresenter.InsertResult(await this.mediator.Send(person));
+            return Ok(await this.mediator.Send(Person));
         }
     }
 }

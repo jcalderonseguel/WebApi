@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Api.Presenters.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Application.Mediators.IdCountryOperations.Queries;
-using Domain.Entities;
+using Application.Mediators.CountryOperations.Queries.InsertCountry;
 
 namespace Api.Controllers
 {
@@ -33,6 +30,5 @@ namespace Api.Controllers
             var response = await this.mediator.Send(new GetCountryIdQuery(CountryId));
             return this.Ok(response);
         }
-
     }
 }

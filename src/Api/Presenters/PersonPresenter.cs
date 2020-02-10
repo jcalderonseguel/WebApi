@@ -1,7 +1,6 @@
 ﻿using Api.Presenters.Interfaces.PersonPresenters;
 using Application.Mediators.PersonOperations.Queries;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 
 namespace Api.Presenters

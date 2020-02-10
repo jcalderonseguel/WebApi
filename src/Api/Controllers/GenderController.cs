@@ -1,5 +1,6 @@
 ﻿using Api.Presenters.Interfaces.GenderPresenters;
 using Application.Mediators.GenderOperations.Queries;
+using Application.Mediators.GenderOperations.Queries.InsertGender;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,5 @@ namespace Api.Controllers
             var response = await this.mediator.Send(new GetGenderIdQuery(GenderId));
             return this.Ok(response);
         }
-
     }
 }

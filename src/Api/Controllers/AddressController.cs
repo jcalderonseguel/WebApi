@@ -1,5 +1,6 @@
 ﻿using Api.Presenters.Interfaces.AddressPresenters;
 using Application.Mediators.AddressOperations.Queries;
+using Application.Mediators.AddressOperations.Queries.InsertAddress;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
