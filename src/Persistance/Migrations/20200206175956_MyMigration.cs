@@ -2,7 +2,7 @@
 
 namespace Persistance.Migrations
 {
-    public partial class testMigration : Migration
+    public partial class MyMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

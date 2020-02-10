@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FluentValidation.Results;
+
+namespace Application.Common.Exceptions
+{
+    public class ValidateException : Exception
+    {
+        public ValidateException()
+            : base("Se han producido uno o mas fallos de validación ")
+        {
+            Failures = new Dictionary<string, string[]>();
+        }
+
+        public ValidateException(List<ValidationFailure> failures)
+            : this()
+        {
+            var propertyNames = failures
+                .Select(e => e.PropertyName)
+                .Distinct();
+
+            foreach (var propertyName in propertyNames)
+            {
+                var propertyFailures = failures
+                    .Where(e => e.PropertyName == propertyName)
+                    .Select(e => e.ErrorMessage)
+                    .ToArray();
+
+                Failures.Add(propertyName, propertyFailures);
+            }
+        }
+
+        public IDictionary<string, string[]> Failures { get; }
+
+    }
+}

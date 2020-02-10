@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Persistance
 {
-    public   class PersonDbContext :DbContext, IPersonDbContext
+    public class PersonDbContext :DbContext, IPersonDbContext
     {
 
         public PersonDbContext(DbContextOptions<PersonDbContext> options)
@@ -100,5 +100,6 @@ namespace Persistance
         public virtual DbSet<Email> Email { get; set; }
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Person> Person { get; set; }
+       
     }
 }

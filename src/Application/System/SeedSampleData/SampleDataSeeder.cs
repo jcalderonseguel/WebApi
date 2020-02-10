@@ -40,7 +40,7 @@ namespace Application.System.SeedSampleData
             {
                 await SeedCountriesAsync(cancellationToken);
             }
-            if (_context.Gender.Count() != Genders.Count) ;
+            if (_context.Gender.Count() != Genders.Count) 
             {
                 await SeedGendersAsync(cancellationToken);
             }
