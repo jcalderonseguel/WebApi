@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Api.Presenters.Interfaces;
 using Api.Presenters;
+using Application.Mediators.Insert;
+using Application.Mediators.PersonOperations.GetPersonByDocumentNumber;
 
 namespace Api.Controllers
 {
@@ -41,13 +43,5 @@ namespace Api.Controllers
 
         }
 
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-
-        public async Task<IActionResult> Post([FromBody]InsertPerson person)
-        {
-            return personPresenter.InsertResult(await this.mediator.Send(person));
-        }
     }
 }

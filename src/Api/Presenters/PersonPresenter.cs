@@ -31,7 +31,7 @@ namespace Api.Presenters
             {
                 result.Message = "Created";
                 result.StatusCode = 201;
-                result.Content = new { Id = Id };
+                result.Content = new { Id };
 
             }
             return new JsonResult(result);
